@@ -1,6 +1,8 @@
 const userModel=require("../models/user.model")
 const bcrypt =require("bcryptjs")
 const jwt=require("jsonwebtoken")
+const tokenBlacklistModel = require("../models/blacklist.model")
+const cookieParser=require("cookie-parser")
 
 /**
  * @name registerUsercontroller
@@ -76,7 +78,7 @@ message: "Invalid email or password"
 
 })
 }
-const isPasswordValid=bcrypt.compare(password,user.password)
+const isPasswordValid= await bcrypt.compare(password,user.password)
 if(!isPasswordValid){
     return res.status(400).json({
         message:"Invalid email or password"
@@ -110,9 +112,31 @@ if(!isPasswordValid){
 
 }
 
+async  function logoutUserController(req,res){
+    const token=req.cookie.token
+    if(token){
+        await tokenBlacklistModel.create({token})
+    }
+    res.clearCookie("token")
+    res.status(200).json({
+        message:"User logged out successfully"
+    })
+}
 
-
+async function getMeController(req,res) {
+    const user = await userModel.findById(req.user.id)
+    res.status(201).json({
+        message:"User details fetched successfully",
+        user:{
+            id:user._id,
+            username:user.username,
+            email:user.email
+        }
+    })
+}
 module.exports={
     registerUserController,
-    loginUserController
+    loginUserController,
+    logoutUserController,
+    getMeController
 }
