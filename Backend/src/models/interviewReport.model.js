@@ -37,3 +37,27 @@ const mongoose =require("mongoose")
  *       tasks:[String]
  * }]
  */
+
+const interviewReportSchema = new mongoose. Schema ( {
+jobDescription: {
+type: String,
+required: [ true, "Job description is required" ]
+},
+resume: {
+type: String,
+
+selfDescription: {
+type: String,
+},
+
+matchScore: {
+type: Number,
+},
+matchScore:{
+  min: 0,
+max: 100,
+}
+
+}
+
+})
