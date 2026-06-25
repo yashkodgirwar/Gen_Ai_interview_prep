@@ -1,5 +1,4 @@
-const { default: mongoose } = require("mongoose")
-const mongose =require("mongoose")
+const mongoose = require("mongoose")
 
 async function connectToDB(){
    try {
@@ -7,7 +6,7 @@ async function connectToDB(){
     console.log("Connected to Database")
     
    } catch (error) {
-       console.log(err)
+       console.error("Database connection error:", error)
    } 
 }
 

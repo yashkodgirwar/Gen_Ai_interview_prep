@@ -145,3 +145,8 @@ const interviewReportSchema = new mongoose.Schema({
   // timestamps:true automatically adds createdAt and updatedAt fields
     timestamps: true
 })
+
+
+const interviewReportModel=mongoose.model("InterviewReport", interviewReportSchema)
+
+module.exports=interviewReportModel
