@@ -22,13 +22,13 @@ authRouter.post("/login",authController.loginUserController)
  * @description clear token from user cookie and add the token in blacklist 
  * @access Public
  */
-authRouter.post("/logout",authController.logoutUserController)
+authRouter.get("/logout",authController.logoutUserController)
 
 /**
  * @route GET/api/auth/get-me
  * @description get the cuurent logged in user details
  * @access Public
  */
-authRouter.post("/get-me",authmiddleware.authUser,authController.getMeController)
+authRouter.get("/get-me",authmiddleware.authUser,authController.getMeController)
 
 module.exports=authRouter
